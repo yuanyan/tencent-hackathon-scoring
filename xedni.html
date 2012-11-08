@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="css/jquery.handsontable.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+
+    <div class="container">
+
+
+        <h3 class="muted">Tencent Hackathon</h3>
+
+
+        <div class="row-fluid">
+            <div class="span2">
+                <div id="city" class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" value="sz" class="btn input-small">深圳</button>
+                    <button type="button" value="bg" class="btn input-small">北京</button>
+                </div>
+            </div>
+
+            <div class="span4">
+                <!-- Button to trigger modal -->
+                <a data-toggle="modal" id="compute" class="btn btn-primary"> 统计评分 </a>
+                <span id="alert" class="help-inline hide"> </span>
+            </div>
+
+        </div>
+
+        <hr>
+        <!-- Example row of columns -->
+        <div class="row-fluid">
+
+            <div class="span5">
+
+                <div id="markGrid" class="dataTable"></div>​
+
+            </div>
+
+
+        </div>
+
+
+        <hr>
+
+        <div class="footer">
+            <p>&copy; Tencent 2012</p>
+        </div>
+
+    </div>
+    <!-- /container -->
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.handsontable.js"></script>
+    <script src="js/parse-1.1.8.js"></script>
+    <!--<script src="https://www.parse.com/downloads/javascript/parse-1.1.8.min.js"></script>-->
+    <script>
+       (function(){
+
+
+           var markGrid = $("#markGrid");
+
+           markGrid.handsontable({
+               startRows: 18,
+               startCols: 2,
+               //always keep at least 1 spare row at the right
+               minSpareRows: 1,
+               //always keep at least 1 spare row at the bottom,
+               rowHeaders: true,
+               colHeaders: ["总分", "名次"]
+           });
+
+
+
+           function tip(str){
+               $("#alert").html("<i class='icon-hand-right'></i> "+ str).show();
+           }
+
+           function queryAll(targetClass, success, error){
+               var query = new Parse.Query(targetClass);
+               query.find({
+                   success: success,
+                   error: error
+               });
+           }
+
+           function initDB(){
+
+               if(!initDB.inited){
+                   var APPLICATION_ID = "5mbgzV7QPeZbAndsMFHKooPL6fQZTyUyIlrO4q9H",
+                           JAVASCRIPT_KEY = "7CdBqEiv6rRGkMlD32PqvcUyRgYEJDW8fJScFgvx";
+
+                   Parse.initialize(APPLICATION_ID, JAVASCRIPT_KEY);
+
+                   initDB.inited = true;
+               }
+
+           }
+
+
+           $("#compute").click(function compute(){
+
+               var targetCity = $('#city').children().closest('.active').val();
+
+               if( !targetCity ) {
+                   return tip("请选择所在城市");
+               }
+
+
+               function success(results) {
+                   // results is an array of Parse.Object.
+                   console.log(results);
+
+                   if(results.length)
+                        tip("拉取到 "+ results.length +" 项, 评分统计ing...");
+                   else
+                        return tip("拉取到 "+ results.length +" 项, 停止统计");
+
+                   // target city data
+                   var originData = [],
+                       teamData = {};// { 0: [[10,8,7,5,0],[10,8,7,5,0]...], 1: [], ...}
+
+                   results.forEach(function(item){
+
+                       var att = item.attributes,
+                           scores = att.scores,
+                           city = att.city,
+                           rtx = att.rtx;
+
+                       if(targetCity == city){
+                           originData.push(att);
+
+                           scores.forEach(function(val, index){
+                               if(!teamData[index]) teamData[index]=[];
+                               teamData[index].push(val);
+                           })
+
+                       }
+                   });
+
+                   var resultData = {};
+
+                   Object.keys(teamData).forEach(function(teamIndex){
+
+
+                       var itemData = {}; // { 0: [10,10,10], 1: [], ...}
+
+                       teamData[teamIndex].forEach(function(items){
+                           // items: [10,8,7,5,0]
+
+                            items.forEach(function(score, itemIndex){
+                                if(!itemData[itemIndex]) itemData[itemIndex]=[];
+                                itemData[itemIndex].push( parseInt(score) );
+                            });
+
+                        });
+
+                        var itemResult=[];
+
+                       Object.keys(itemData).forEach(function(itemIndex){
+
+                           var sd = itemData[itemIndex].sort();
+                           // filter min and max
+                           if(sd.length > 2){
+                               sd = sd.slice(1, sd.length-1);
+                           }
+
+                           var total = sd.reduce(function(a, b) {
+                               return a + b;
+                           });
+
+                           itemResult.push(total);
+
+                        });
+
+                       resultData[teamIndex] = itemResult.reduce(function(a, b) {
+                           return a + b;
+                       });
+
+                   });
+
+                   console.log(resultData);
+
+                   var resultArray= [];
+
+                   Object.keys(resultData).forEach(function(teamIndex){
+                       // print result
+                       // console.log(teamIndex, resultData[teamIndex]);
+                       // translate to array
+                       resultArray[teamIndex] = {i: teamIndex, v: resultData[teamIndex]};
+                       // [ teamIndex, resultData[teamIndex] ];
+
+                   });
+
+                   // desc sort
+                   resultArray = resultArray.sort(function(a, b){
+                       return b.v - a.v;
+                   });
+
+                   var displayArray = [];
+                   resultArray.forEach(function(obj, k){
+
+                       displayArray[obj.i] = [ obj.v, k+1 ];
+                   });
+
+                   tip("拉取到 "+ results.length +" 项，完成统计");
+
+                   var handsontable = markGrid.data('handsontable');
+                   handsontable.loadData(displayArray);
+
+
+               }
+
+               function error(err) {
+                   // error is an instance of Parse.Error.
+                   tip(JSON.stringify(err));
+
+               }
+
+               initDB();
+               queryAll(targetCity, success, error);
+               tip("拉取数据ing...");
+
+           });
+
+
+
+       })();
+
+    </script>
+
+
+
+
+    </body>
+</html>

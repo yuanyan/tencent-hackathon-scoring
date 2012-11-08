@@ -1,71 +1,311 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Hackathon by yuanyan</title>
-  </head>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-  <body>
-    <div id="container">
-      <div class="inner">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="css/jquery.handsontable.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
 
-        <header>
-          <h1>Hackathon</h1>
-          <h2>Tencent Hackathon</h2>
-        </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/yuanyan/hackathon/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/yuanyan/hackathon/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/yuanyan/hackathon" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+    <div class="container">
+
+
+        <h3 class="muted">Tencent Hackathon</h3>
+
+
+        <div class="row-fluid">
+            <div class="span2">
+                <div id="city" class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" value="sz" class="btn input-small">深圳</button>
+                    <button type="button" value="bg" class="btn input-small">北京 </button>
+                </div>
+            </div>
+
+            <div class="span4">
+                <input id="rtx" class="input-medium" type="text" placeholder="RTX Name">
+            </div>
+
+        </div>
+
+        <hr>
+        <!-- Example row of columns -->
+        <div class="row-fluid">
+
+            <div class="span5">
+
+                <div id="markGrid" class="dataTable"></div>​
+
+            </div>
+
+            <div class="span7">
+                <h4><i class="icon-flag"></i> 评价标准</h4>
+                <p class="">难度： 产品实现上能挑战新技术及极限时间内完成的产品的复杂性</p>
+                <p class="text-warning">完整性： 产品体验上可以形成闭环，具有连贯操作体验</p>
+                <p class="text-error">市场及扩展性： 具有市场竞争力，在同类型产品中能突出特点，在功能上得有一定预期的扩展</p>
+                <p class="text-info">设计与体验： 产品能提供直观易懂的交互方式、通顺简短到位的措辞、精美并能传递产品特性的视觉设计</p>
+                <p class="text-success">创意： 产品有创新点，创新的形态，创新的融合，创新的市场定位等</p>
+            </div>
+
+
+        </div>
+
+        <div class="row-fluid">
+
+
+            <!-- Button to trigger modal -->
+            <a data-toggle="modal" id="check" class="btn btn-primary"> 完成 </a>
+            <span id="alert" class="help-inline hide"> </span>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 id="myModalLabel"><i class='icon-hand-up'></i> 提交确认</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="submit"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                    <button id="put" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+
+
+        </div>
 
         <hr>
 
-        <section id="main_content">
-          <h3>Welcome to GitHub Pages.</h3>
+        <div class="footer">
+            <p>&copy; Tencent 2012</p>
+        </div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
-
-        <footer>
-          Hackathon is maintained by <a href="https://github.com/yuanyan">yuanyan</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
     </div>
-  </body>
+    <!-- /container -->
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.handsontable.js"></script>
+    <script src="js/parse-1.1.8.js"></script>
+    <!--<script src="https://www.parse.com/downloads/javascript/parse-1.1.8.min.js"></script>-->
+    <script>
+       (function(){
+           var myData = [
+               [10, 8, 7, 5, 6],
+               [9, 8, 7, 5, 6],
+               [10, 9, 7, 5, 6],
+               [10, 8, 7, 5, 6],
+               [10, 8, 7, 5, 9],
+               [8, 9, 7, 5, 9]
+           ];
+
+
+           function valueRenderer(instance, td, row, col, prop, value, cellProperties) {
+               Handsontable.TextCell.renderer.apply(this, arguments);
+
+               var score = parseInt(value, 10);
+
+               if(cellProperties.readOnly) {
+                   td.style.opacity = 0.7;
+               }
+               if(score ==  10) {
+                   td.style.color = 'green';
+               }else if(score == 0){
+                   td.style.color = 'red';
+               }else if(score > 6){
+                   td.style.color = 'blue';
+               }else if(score < 7){
+                   td.style.color = '#B94A48';
+               }else{
+                   td.style.color = "";
+               }
+
+           }
+
+           var markGrid = $("#markGrid");
+
+           markGrid.handsontable({
+               data: myData,
+               startRows: 18,
+               startCols: 5,
+               //always keep at least 1 spare row at the right
+               minSpareRows: 1,
+
+               cells: function (row, col, prop) {
+                   var cellProperties = {};
+                   cellProperties.type = {
+                       renderer: valueRenderer
+                   };
+                   return cellProperties;
+               },
+
+               // Use the onBeforeChange callback to validate changes before they are applied to the table.
+               onBeforeChange: function (cells) {
+                   cells.forEach(function(cell){
+
+                       if(cell[3] == "") return;
+
+                       var score = parseInt(cell[3], 10);
+                       if(isNaN(score) || score > 10 || score < 0){
+
+                           cell[3] = cell[2];
+                           tip("每项的评分区间为 0-10");
+
+                       }
+                       //console.log(score);
+                   });
+               },
+               //always keep at least 1 spare row at the bottom,
+               rowHeaders: true,
+               colHeaders: ["难度", "完整性", "市场及扩展性","设计与体验","创意"]
+           });
+
+
+           var data;
+
+           $("#check").click(function check(){
+               var city = $('#city').children().closest('.active').val();
+               var rtx = $('#rtx').val();
+
+               if( !city ) {
+                    return tip("请选择所在城市");
+               }
+
+               if( !rtx ) {
+                    return tip("请填写 RTX Name");
+               }
+
+               var scores = markGrid.handsontable('getData'),
+                   total=0;
+
+               for(var i= 0; i<scores.length; i++){
+                   var row = scores[i];
+                   for(var j= 0; j<row.length-1; j++){
+                        if(typeof parseInt(row[j]) != typeof parseInt(row[j+1])){
+
+                            return tip("请完善第"+ (i+1) +"行的评分项");
+                        }
+                   }
+
+                    // slice empty cells
+                   if(row[0] || parseInt(row[0]) == 0) total = i+1;
+               }
+
+
+               scores = scores.slice(0, total);
+
+               data = {
+                   city: city,
+                   rtx: rtx,
+                   scores : scores
+               };
+
+
+               console.log(data);
+
+               $("#submit").text(rtx + "(" + (city=='sz'?"深圳":"北京") + ") " + "确认提交吗？");
+
+               $('#myModal').modal('show');
+
+           });
+
+
+           $("#put").click(function put(){
+
+               $("#submit").text("提交ing...");
+
+               $("#put").attr('disabled','disabled');
+
+               save(data, function(object){
+
+                   $("#submit").text("提交成功（5秒后自动关闭浮层）...");
+
+                   console.log(object);
+
+                   setTimeout(function(){
+                       $('#myModal').modal('hide');
+                       $("#put").removeAttr('disabled');
+                   }, 5000);
+
+                   //queryAll('ScoreObject');
+
+               }, function(model, error) {
+
+
+                   $("#submit").text("提交失败...");
+                   console.log(model, error);
+
+               });
+
+           });
+
+           function tip(str){
+               $("#alert").html("<i class='icon-hand-right'></i> "+ str).show();
+           }
+
+           function queryAll(targetClass){
+               var query = new Parse.Query(targetClass);
+               query.find({
+                   success: function(results) {
+                       // results is an array of Parse.Object.
+                       console.log(results);
+                   },
+
+                   error: function(error) {
+                       // error is an instance of Parse.Error.
+                       console.log(error);
+                   }
+               });
+           }
+
+
+           function save(obj, success, error){
+
+               initDB();
+
+               var city = $('#city').children().closest('.active').val();
+
+               var ScoreObject = Parse.Object.extend(city);
+               var scoreObject = new ScoreObject();
+               scoreObject.save(obj, {
+                   success: success,
+                   error: error
+               });
+
+           }
+
+           function initDB(){
+
+               if(!initDB.inited){
+                   var APPLICATION_ID = "5mbgzV7QPeZbAndsMFHKooPL6fQZTyUyIlrO4q9H",
+                       JAVASCRIPT_KEY = "7CdBqEiv6rRGkMlD32PqvcUyRgYEJDW8fJScFgvx";
+
+                   Parse.initialize(APPLICATION_ID, JAVASCRIPT_KEY);
+
+                   initDB.inited = true;
+               }
+
+           }
+
+
+
+       })();
+
+    </script>
+
+
+
+
+    </body>
 </html>
