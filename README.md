@@ -1,7 +1,7 @@
 # Tencent Hackathon Scoring Application
 
-* ÆÀ·ÖÒ³ http://madscript.com/tencent-hackathon-scoring/index.html
-* ¼Æ·ÖÒ³ http://madscript.com/tencent-hackathon-scoring/scoring.html
+* è¯„åˆ†é¡µ http://madscript.com/tencent-hackathon-scoring/index.html
+* è®¡åˆ†é¡µ http://madscript.com/tencent-hackathon-scoring/scoring.html
 
 ![screenshot](https://raw.github.com/yuanyan/tencent-hackathon-scoring/gh-pages/screenshot.png)
 
