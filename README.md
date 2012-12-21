@@ -6,3 +6,8 @@
 ![screenshot](https://raw.github.com/yuanyan/tencent-hackathon-scoring/gh-pages/screenshot.png)
 
 
+## Dependencies
+* jQuery
+* Bootstrap
+* Handsontable
+* Parse
