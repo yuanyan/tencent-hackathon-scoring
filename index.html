@@ -25,10 +25,13 @@
 
 
         <div class="row-fluid">
-            <div class="span2">
+            <div class="span4">
                 <div id="city" class="btn-group" data-toggle="buttons-radio">
-                    <button type="button" value="sz" class="btn input-small">深圳</button>
+                    <button type="button" value="sh" class="btn input-small">上海</button>
                     <button type="button" value="bg" class="btn input-small">北京 </button>
+                    <button type="button" value="cd" class="btn input-small">成都</button>
+                    <button type="button" value="sz" class="btn input-small">深圳</button>
+
                 </div>
             </div>
 
@@ -101,6 +104,13 @@
     <!--<script src="https://www.parse.com/downloads/javascript/parse-1.1.8.min.js"></script>-->
     <script>
        (function(){
+       
+           var citys = {
+             'sz':"深圳",
+             'bg':"北京",
+             'cd':"成都",
+             'sh':"上海"
+           };
            var myData = [
                [10, 8, 7, 5, 6],
                [9, 8, 7, 5, 6],
@@ -214,7 +224,7 @@
 
                console.log(data);
 
-               $("#submit").text(rtx + "(" + (city=='sz'?"深圳":"北京") + ") " + "确认提交吗？");
+               $("#submit").text(rtx + "(" + citys[city] + ") " + "确认提交吗？");
 
                $('#myModal').modal('show');
 
@@ -225,7 +235,7 @@
 
                $("#submit").text("提交ing...");
 
-               $("#put").attr('disabled','disabled');
+               $("#put").attr('disabled', 'disabled');
 
                save(data, function(object){
 
